@@ -5,7 +5,7 @@ project_string="therm_sweep"
 steps=10000
 
 def sweep_wrapper():
-    wandb.init(entity="chris-pedersen",project=project_string,dir="/scratch/cp3759/thermalizer_data/wandb_data")
+    wandb.init(entity="CheeseCode",project=project_string,dir="/scratch/ql2221/thermalizer_data/wandb_data")
     print("sweeping")
     inference.therm_inference("sweep",wandb.config.start,wandb.config.stop,steps,True,project_string)
 
@@ -20,6 +20,6 @@ sweep_configuration = {
 }
 
 # 3: Start the sweep
-sweep_id = wandb.sweep(sweep=sweep_configuration, project=project_string,entity="chris-pedersen")
+sweep_id = wandb.sweep(sweep=sweep_configuration, project=project_string,entity="CheeseCode")
 
 wandb.agent(sweep_id, function=sweep_wrapper, count=20)
