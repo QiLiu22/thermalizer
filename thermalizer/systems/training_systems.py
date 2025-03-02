@@ -82,8 +82,8 @@ class Trainer:
 
     def init_wandb(self):
         ## Set up wandb stuff
-        wandb.init(entity="chris-pedersen",project=self.config["project"],
-                        dir="/scratch/cp3759/thermalizer_data/wandb_data",config=self.config)
+        wandb.init(entity="CheeseCode",project=self.config["project"],
+                        dir="/scratch/ql2221/thermalizer_data/wandb_data",config=self.config)
         self.config["save_path"]=wandb.run.dir
         self.config["wandb_url"]=wandb.run.get_url()
         self.wandb_init=True 
@@ -93,8 +93,8 @@ class Trainer:
 
     def resume_wandb(self):
         """ Resume a wandb run from the self.config wandb url. """
-        wandb.init(entity="chris-pedersen",project=self.config["project"],
-                            id=self.config["wandb_url"][-8:],dir="/scratch/cp3759/thermalizer_data/wandb_data", resume="must")
+        wandb.init(entity="CheeseCode",project=self.config["project"],
+                            id=self.config["wandb_url"][-8:],dir="/scratch/ql2221/thermalizer_data/wandb_data", resume="must")
         self.wandb_init=True
         return
 
@@ -406,7 +406,7 @@ class ResidualEmulatorTrainer(Trainer):
         ## that can distinguish between Kolmogorov and QG emulators
         if self.config["PDE"]=="Kolmogorov":
             ## Load test data
-            with open("/scratch/cp3759/thermalizer_data/kolmogorov/reynolds10k/test40.p", 'rb') as fp:
+            with open("/scratch/ql2221/thermalizer_data/kolmogorov/reynolds10k/test40.p", 'rb') as fp:
                 test_suite = pickle.load(fp)
 
             ## Make sure train and test increments are the same
@@ -487,7 +487,7 @@ class ResidualEmulatorTrainer(Trainer):
 
         else:
             ## Otherwise do QG rollout
-            test_suite=torch.load("/scratch/cp3759/thermalizer_data/qg/test_eddy/eddy_dt5_20.pt") ## Saved normalised?
+            test_suite=torch.load("/scratch/ql2221/thermalizer_data/qg/test_eddy/eddy_dt5_20.pt") ## Saved normalised?
             ## Cut test suite based on nsteps
             emu_rollout=performance_qg.EmulatorRollout(test_suite.to("cuda"),self.model,sigma=self.sigma,silence=silence)
             emu_rollout.evolve()
@@ -922,7 +922,7 @@ class RefinerTrainer(Trainer):
             raise NotImplementedError
         if self.config["PDE"]=="Kolmogorov":
             ## Set up test trajectory tensor
-            with open("/scratch/cp3759/thermalizer_data/kolmogorov/reynolds10k/test40.p", 'rb') as fp:
+            with open("/scratch/ql2221/thermalizer_data/kolmogorov/reynolds10k/test40.p", 'rb') as fp:
                 test_suite = pickle.load(fp)
             self.test_trajectories=(test_suite["data"][:,:200]/self.model.config["field_std"]).to(self.gpu_id)
         elif self.config["PDE"]=="QG":
