@@ -18,8 +18,8 @@ import wandb
 
 
 def therm_inference(identifier,start,stop,steps,forward_diff=True,
-            emulator="/scratch/cp3759/thermalizer_data/wandb_data/wandb/run-20240804_230341-06kgy1hz/files/model_weights.pt", ## Our default baseline crappy emulator
-            thermalizer="/scratch/cp3759/pyqg_data/wandb_runs/wandb/run-20241022_210436-180aqx69/files/model_weights.pt",
+            emulator="/scratch/ql2221/thermalizer_data/wandb_data/wandb/run-20240804_230341-06kgy1hz/files/model_weights.pt", ## Our default baseline crappy emulator
+            thermalizer="/scratch/ql2221/pyqg_data/wandb_runs/wandb/run-20241022_210436-180aqx69/files/model_weights.pt",
             project="therm_tests",solo_run=False,save=False,silence=True):
     """
         Function to run a thermalized emulator trajectory.
@@ -38,7 +38,7 @@ def therm_inference(identifier,start,stop,steps,forward_diff=True,
     """
 
     config={}
-    config["save_dir"]="/scratch/cp3759/thermalizer_data/icml_inferences"
+    config["save_dir"]="/scratch/ql2221/thermalizer_data/icml_inferences"
     config["identifier"]=identifier
     config["save_string"]=config["save_dir"]+"/"+config["identifier"]
     if solo_run:
@@ -58,7 +58,7 @@ def therm_inference(identifier,start,stop,steps,forward_diff=True,
     #stop=int(sys.argv[3])
 
     if solo_run:
-        wandb.init(entity="chris-pedersen",project=project,dir="/scratch/cp3759/thermalizer_data/wandb_data")
+        wandb.init(entity="CheeseCode",project=project,dir="/scratch/ql2221/thermalizer_data/wandb_data")
         if save:
             print("Saving results in directory %s" % config["save_string"])
             os.system(f'mkdir -p {config["save_string"]}')
@@ -72,7 +72,7 @@ def therm_inference(identifier,start,stop,steps,forward_diff=True,
     model_emu=model_emu.eval()
 
     ## Load test data
-    with open("/scratch/cp3759/thermalizer_data/kolmogorov/reynolds10k/test40.p", 'rb') as fp:
+    with open("/scratch/ql2221/thermalizer_data/kolmogorov/reynolds10k/test40.p", 'rb') as fp:
         test_suite = pickle.load(fp)
 
     ## Do the normalisation once - everything is done in normalised space here
@@ -102,7 +102,7 @@ def therm_inference(identifier,start,stop,steps,forward_diff=True,
     emu_cache_dict["sigma"]=config.get("sigma")
     emu_cache_dict["steps"]=config["steps"]
 
-    save_string="/scratch/cp3759/thermalizer_data/icml_inferences/cached_runs/kolmogorov/"
+    save_string="/scratch/ql2221/thermalizer_data/icml_inferences/cached_runs/kolmogorov/"
     with open(save_string+"cache_list.p", 'rb') as fp:
         cache_list = pickle.load(fp)
 
