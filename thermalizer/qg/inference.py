@@ -31,7 +31,7 @@ def therm_inference_qg(identifier,start,stop,steps,forward_diff,emulator,thermal
     """
 
     config={}
-    config["save_dir"]="/scratch/cp3759/thermalizer_data/icml_inferences"
+    config["save_dir"]="/scratch/ql2221/thermalizer_data/icml_inferences"
     config["identifier"]=identifier
     config["save_string"]=config["save_dir"]+"/"+config["identifier"]
     if solo_run:
@@ -43,7 +43,7 @@ def therm_inference_qg(identifier,start,stop,steps,forward_diff,emulator,thermal
         config["stop"]=wandb.config.stop
     config["steps"]=steps
     config["forward_diff"]=forward_diff
-    config["test_suite_path"]="/scratch/cp3759/thermalizer_data/qg/test_eddy/eddy_dt5_20.pt"
+    config["test_suite_path"]="/scratch/ql2221/thermalizer_data/qg/test_eddy/eddy_dt5_20.pt"
 
     config["emulator"]=emulator
     config["thermalizer"]=thermalizer
@@ -57,7 +57,7 @@ def therm_inference_qg(identifier,start,stop,steps,forward_diff,emulator,thermal
     model_therm=model_therm.eval()
 
     if solo_run:
-        wandb.init(entity="chris-pedersen",project=project,dir="/scratch/cp3759/thermalizer_data/wandb_data")
+        wandb.init(entity="CheeseCode",project=project,dir="/scratch/ql2221/thermalizer_data/wandb_data")
         if save:
             print("Saving results in directory %s" % config["save_string"])
             os.system(f'mkdir -p {config["save_string"]}')
@@ -79,7 +79,7 @@ def therm_inference_qg(identifier,start,stop,steps,forward_diff,emulator,thermal
     emu_cache_dict["sigma"]=config.get("sigma")
     emu_cache_dict["steps"]=config["steps"]
 
-    save_string="/scratch/cp3759/thermalizer_data/icml_inferences/cached_runs/qg/"
+    save_string="/scratch/ql2221/thermalizer_data/icml_inferences/cached_runs/qg/"
     with open(save_string+"cache_list.p", 'rb') as fp:
         cache_list = pickle.load(fp)
 
