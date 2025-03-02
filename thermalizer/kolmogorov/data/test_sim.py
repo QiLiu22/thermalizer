@@ -13,7 +13,7 @@ from tqdm import tqdm
 parser = argparse.ArgumentParser()
 parser.add_argument('--run_number', type=int, default=0)
 args, extra = parser.parse_known_args()
-save_string="/scratch/cp3759/thermalizer_data/kolmogorov/test_suite/test%d.pt" % args.run_number
+save_string="/scratch/ql2221/thermalizer_data/kolmogorov/test_suite/test%d.pt" % args.run_number
 
 passes=10000
 spinup=5000
